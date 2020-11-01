@@ -5,102 +5,56 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebapiEcommercer.Business;
+using WebapiEcommercer.Data.VO;
 using WebapiEcommercer.Models;
 using WebapiEcommercer.Models.Context;
 
 namespace WebapiEcommercer.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductController : ControllerBase
+    
+    public class ProductController : Controller
     {
-        private readonly BaseContext _context;
+        private IProductBusiness _productBusiness;
 
-        public ProductController(BaseContext context)
+        public ProductController(IProductBusiness product)
         {
-            _context = context;
+            _productBusiness = product;
         }
 
-        // GET: api/Product
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public IActionResult Get()
         {
-            return await _context.Products.ToListAsync();
+            return Ok(_productBusiness.FindAll());
         }
 
-        // GET: api/Product/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(Guid id)
+        [HttpGet("{Name}")]
+        public IActionResult Get(string name)
         {
-            var product = await _context.Products.FindAsync(id);
 
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            return product;
+            var product = _productBusiness.FindByName(name);
+            if (product == null) return NotFound();
+            return Ok(product);
         }
-
-        // PUT: api/Product/5
+        [HttpPost]
+        public IActionResult Post([FromBody]ProductVO product)
+        {
+            if (_productBusiness.Exists(product.Name).Equals(true)) return Ok(new { Description = "Este item já esxite" });       
+            if (product == null) return BadRequest();
+            return new ObjectResult(_productBusiness.Create(product));
+        }
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(Guid id, Product product)
+        public IActionResult Put([FromBody]ProductVO product)
         {
-            if (id != product.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(product).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            if (product == null) return BadRequest();
+            return new ObjectResult(_productBusiness.Update(product));
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _productBusiness.Delete(id);
             return NoContent();
         }
 
-        // POST: api/Product
-        [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
-        {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetProduct", new { id = product.id }, product);
-        }
-
-        // DELETE: api/Product/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(Guid id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-
-            return product;
-        }
-
-        private bool ProductExists(Guid id)
-        {
-            return _context.Products.Any(e => e.id == id);
-        }
     }
 }

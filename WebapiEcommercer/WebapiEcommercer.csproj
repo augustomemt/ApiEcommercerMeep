@@ -12,10 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Business\" />
     <Folder Include="Data\Converter\" />
     <Folder Include="Data\Converters\" />
-    <Folder Include="Data\VO\" />
   </ItemGroup>
 
 </Project>
