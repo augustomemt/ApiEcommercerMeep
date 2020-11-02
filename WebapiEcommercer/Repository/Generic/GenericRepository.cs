@@ -39,16 +39,16 @@ namespace WebapiEcommercer.Repository.Generic
             return item;
         }
 
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
             T element = dataset.Find(id);
             dataset.Remove(element);
             _context.SaveChanges();
         }
 
-        public bool Exists(int? id)
+        public bool Exist(string Name)
         {
-            throw new NotImplementedException();
+            return _context.Products.Any(p => p.Name == Name);
         }
 
         public List<T> FindAll()

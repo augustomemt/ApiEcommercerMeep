@@ -13,7 +13,7 @@ namespace WebapiEcommercer.Business
         List<ProductVO> FindAll();
         List<ProductVO> FindByName(string name);
         ProductVO Update(ProductVO item);
-        void Delete(int id);
+        void Delete(Guid id);
         bool Exists(string Name);
 
 

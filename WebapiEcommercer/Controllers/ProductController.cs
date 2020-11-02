@@ -12,7 +12,7 @@ using WebapiEcommercer.Models.Context;
 
 namespace WebapiEcommercer.Controllers
 {
-    
+    [Route("api/[controller]")]
     public class ProductController : Controller
     {
         private IProductBusiness _productBusiness;
@@ -44,13 +44,15 @@ namespace WebapiEcommercer.Controllers
             return new ObjectResult(_productBusiness.Create(product));
         }
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody]ProductVO product)
+        public IActionResult Put([FromBody]ProductVO product , Guid id)
         {
             if (product == null) return BadRequest();
+            product.Id = id;
             return new ObjectResult(_productBusiness.Update(product));
         }
+
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
             _productBusiness.Delete(id);
             return NoContent();

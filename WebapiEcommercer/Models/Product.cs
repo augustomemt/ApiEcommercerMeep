@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebapiEcommercer.Models
 {
-    public class Product
+    public class Product : BaseEntity.BaseEntity
     {
         [Display(Name="Nome do Produto")]
-        [Required(ErrorMessage ="Campo obrigatório")]
+        [Required(ErrorMessage = "O nome do produto é obrigatório", AllowEmptyStrings = false)]
         public string Name { get; set; }
         [Display(Name = "Categoria")]
         public string Category { get; set; }
@@ -17,6 +17,15 @@ namespace WebapiEcommercer.Models
         [Required(ErrorMessage = "Campo obrigatório")]
         public decimal Value { get; set; }
 
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (String.IsNullOrEmpty(Name))
+            {
+                yield return new ValidationResult("É necessário definir ou CPF ou CNPJ.", new[] { "CPF", "CNPJ" });
+            }
+
+
+        }
 
     }
 }

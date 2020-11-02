@@ -17,8 +17,10 @@ namespace WebapiEcommercer.Repository.Generic
 
         T Update(T item);
 
-        void Delete(int id);
+        void Delete(Guid id);
 
-        bool Exists(int? id);
+        bool Exist(string name);
+
+     
     }
 }

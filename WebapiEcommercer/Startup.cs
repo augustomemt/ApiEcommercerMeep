@@ -10,7 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using WebapiEcommercer.Business;
 using WebapiEcommercer.Models.Context;
+using WebapiEcommercer.Repository.Generic;
 
 namespace WebapiEcommercer
 {
@@ -28,6 +30,9 @@ namespace WebapiEcommercer
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<BaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Connection")));
+
+            services.AddScoped<IProductBusiness, ProductBusiness>();
+            services.AddScoped(typeof(IRepository<>), (typeof(GenericRepository<>)));
 
         }
 
