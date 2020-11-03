@@ -23,7 +23,11 @@ namespace WebapiEcommercer.Controllers
             _orderBusiness = order;
             
         }
-
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok(_orderBusiness.FindAll());
+        }
         // POST: api/Order
         [HttpPost]
         public IActionResult PostOrder(OrderVO order)

@@ -31,8 +31,7 @@ namespace WebapiEcommercer.Business
         {
             return _converter.ParseList(_repository.FindAll());
         }
-
-        public OrderVO FindById(int id)
+        public OrderVO FindByCpf(string cpf)
         {
             throw new NotImplementedException();
         }

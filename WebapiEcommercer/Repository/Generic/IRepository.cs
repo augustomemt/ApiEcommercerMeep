@@ -15,6 +15,7 @@ namespace WebapiEcommercer.Repository.Generic
         T Create(T item);
         List<T> FindByName(string name);
 
+       
         List<T> FindAll();
 
         T Update(T item);

@@ -37,10 +37,7 @@ namespace WebapiEcommercer.Business
         {
             try
             {
-               
-                
-                    _repository.Delete(id);
-                
+               _repository.Delete(id);                
                 
             }
             catch (Exception ex)

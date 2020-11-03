@@ -9,7 +9,7 @@ namespace WebapiEcommercer.Business
     public interface IOrderBusiness
     {
         OrderVO Create(OrderVO item);
-        OrderVO FindById(int id);
+        OrderVO FindByCpf(string cpf);
         List<OrderVO> FindAll();
     }
 }

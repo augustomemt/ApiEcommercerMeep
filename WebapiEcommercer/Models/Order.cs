@@ -16,6 +16,6 @@ namespace WebapiEcommercer.Models
 
         public decimal TotalValue { get; set; }
 
-        public List<OrderItemVO> itens { get; set; }
+        public List<OrderItem> itens { get; set; }
     }
 }

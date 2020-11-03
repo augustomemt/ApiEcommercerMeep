@@ -45,7 +45,10 @@ namespace WebapiEcommercer.Repository.Generic
         public  void Delete(Guid id)
         {
             T element = dataset.Find(id);
-            dataset.Remove(element);
+            if(!_context.Orders.Any(e => e.Id == element.Id).Equals(true))
+            {
+                dataset.Remove(element);
+            }           
            _context.SaveChanges();
         }
 
@@ -57,13 +60,14 @@ namespace WebapiEcommercer.Repository.Generic
         public List<T> FindAll()
         {
             return dataset.ToList();
-        }
+        }        
 
         public List<T> FindByName(string name)
         {
             var product = _context.Products.Where(p => p.Name == name).FirstOrDefault();
             return dataset.Where(p => p.Id == product.Id).ToList();
         }
+        
 
         public T Update(T item)
         {
