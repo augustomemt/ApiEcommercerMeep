@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebapiEcommercer.Data.VO;
+using WebapiEcommercer.Models;
 using WebapiEcommercer.Models.BaseEntity;
 using WebapiEcommercer.Models.Context;
 
@@ -28,6 +30,7 @@ namespace WebapiEcommercer.Repository.Generic
         {
             try
             {
+                
                 dataset.Add(item);
                 _context.SaveChanges();
 
@@ -39,11 +42,11 @@ namespace WebapiEcommercer.Repository.Generic
             return item;
         }
 
-        public void Delete(Guid id)
+        public  void Delete(Guid id)
         {
             T element = dataset.Find(id);
             dataset.Remove(element);
-            _context.SaveChanges();
+           _context.SaveChanges();
         }
 
         public bool Exist(string Name)
@@ -56,9 +59,10 @@ namespace WebapiEcommercer.Repository.Generic
             return dataset.ToList();
         }
 
-        public T FindById(int id)
+        public List<T> FindByName(string name)
         {
-            return dataset.SingleOrDefault(p => p.Id.Equals(id));
+            var product = _context.Products.Where(p => p.Name == name).FirstOrDefault();
+            return dataset.Where(p => p.Id == product.Id).ToList();
         }
 
         public T Update(T item)
@@ -69,5 +73,7 @@ namespace WebapiEcommercer.Repository.Generic
 
             return item;
         }
+
+       
     }
 }

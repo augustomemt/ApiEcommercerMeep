@@ -32,6 +32,7 @@ namespace WebapiEcommercer
             services.AddDbContext<BaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Connection")));
 
             services.AddScoped<IProductBusiness, ProductBusiness>();
+            services.AddScoped<IOrderBusiness, OrderBusiness>();
             services.AddScoped(typeof(IRepository<>), (typeof(GenericRepository<>)));
 
         }

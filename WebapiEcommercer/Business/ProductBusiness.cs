@@ -28,6 +28,7 @@ namespace WebapiEcommercer.Business
 
         public ProductVO Create(ProductVO product)
         {
+
             Product productEntity = _converter.Parse(product);
             productEntity = _repository.Create(_converter.Parse(product));
             return _converter.Parse(productEntity);
@@ -36,7 +37,11 @@ namespace WebapiEcommercer.Business
         {
             try
             {
-                _repository.Delete(id);
+               
+                
+                    _repository.Delete(id);
+                
+                
             }
             catch (Exception ex)
             {
@@ -56,9 +61,9 @@ namespace WebapiEcommercer.Business
             return _converter.ParseList(_repository.FindAll());
         }
 
-        public ProductVO FindById(int id)
+        public List<ProductVO> FindByName(string name)
         {
-            return _converter.Parse(_repository.FindById(id));
+            return _converter.ParseList(_repository.FindByName(name));
         }
 
         public ProductVO Update(ProductVO item)
@@ -69,10 +74,12 @@ namespace WebapiEcommercer.Business
             return _converter.Parse(productEntntiry);
         }
 
-        public List<ProductVO> FindByName(string name)
+        public ProductVO FindById(int id)
         {
             throw new NotImplementedException();
         }
+
+       
     }
 
 }

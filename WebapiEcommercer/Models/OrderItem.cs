@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebapiEcommercer.Models
 {
-    public class OrderItem
+    public class OrderItem : BaseEntity.BaseEntity
     {
-        public Guid Id { get; set; }
+       
         public Guid ProductId { get; set; }
         public decimal ProductValue { get; set; }
         public string ProductName { get; set; }

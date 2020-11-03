@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebapiEcommercer.Data.VO;
+using WebapiEcommercer.Models;
 using WebapiEcommercer.Models.BaseEntity;
 
 namespace WebapiEcommercer.Repository.Generic
@@ -11,7 +13,7 @@ namespace WebapiEcommercer.Repository.Generic
 
 
         T Create(T item);
-        T FindById(int id);
+        List<T> FindByName(string name);
 
         List<T> FindAll();
 

@@ -17,15 +17,7 @@ namespace WebapiEcommercer.Models
         [Required(ErrorMessage = "Campo obrigatório")]
         public decimal Value { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (String.IsNullOrEmpty(Name))
-            {
-                yield return new ValidationResult("É necessário definir ou CPF ou CNPJ.", new[] { "CPF", "CNPJ" });
-            }
-
-
-        }
+        
 
     }
 }
